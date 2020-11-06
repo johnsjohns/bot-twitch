@@ -1,0 +1,24 @@
+{
+  "name": "boottwich",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnsjohns/bot-twitch.git"
+  },
+  "author": "Joao Figueira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johnsjohns/bot-twitch/issues"
+  },
+  "homepage": "https://github.com/johnsjohns/bot-twitch#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "tmi.js": "^1.5.0"
+  }
+}
