@@ -1,4 +1,4 @@
-const configure = require('dotenv').config();
+const config = require('dotenv/config');
 
 const tmi = require('tmi.js');
 const client = new tmi.Client({
@@ -8,10 +8,10 @@ const client = new tmi.Client({
 		secure: true
 	},
 	identity: {
-		username: configure.BOT_USERNAME,
-		password: configure.OAUTH_PASSWORD
+		username: process.env.BOT_USERNAME,
+		password: process.env.OAUTH_TOKEN
 	},
-	channels: [ configure.CHANNELS ]
+	channels: [ process.env.CHANNEL_NAME ]
 });
 client.connect().catch(console.error);
 client.on('message', (channel, tags, message, self) => {
@@ -20,3 +20,4 @@ client.on('message', (channel, tags, message, self) => {
 		client.say(channel, `@${tags.username}, heya!`);
 	}
 });
+
