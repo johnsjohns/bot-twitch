@@ -1,7 +1,7 @@
 const config = require('dotenv/config');
-
 const tmi = require('tmi.js');
-const client = new tmi.Client({
+
+opt = {
 	options: { debug: true },
 	connection: {
 		reconnect: true,
@@ -11,20 +11,34 @@ const client = new tmi.Client({
 		username: process.env.BOT_USERNAME,
 		password: process.env.OAUTH_TOKEN
 	},
-	channels: [ process.env.CHANNEL_NAME ]
-});
-client.on('connected', onConnectedHandler);
+	channels: [ process.env.CHANNEL_NAME ],
+}
+
+
+const client = new tmi.Client(opt);
+const channel = opt.channels[0];
+
+
 client.connect().catch(console.error);
-client.on('message', (channel, tags, message, self) => {
+client.on('connected', onConnectedHandler);
+function onConnectedHandler (addr, port) {
+	console.log(`* Connected to ${addr}:${port}`);
+  }
+
+  function messageIncoming(channel, tags, message, self){
+	
 	if(self) return;
 	if(message.toLowerCase() === '!hello') {
 		client.say(channel, `@${tags.username}, heya!`);
 	}
-	
-});
+	if(message.toLowerCase() === '!ola'){
+		client.say(channel, `Ola @${tags.username}, seja bem vindo!`);
+	}	
 
 
-function onConnectedHandler (addr, port) {
-	console.log(`* Connected to ${addr}:${port}`);
-	client.say(process.env.CHANNEL_NAME, `Sejam bem vindos ao canal`);
-  }
+}
+   
+  client.on('message', messageIncoming);
+
+
+  
