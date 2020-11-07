@@ -1,0 +1,1 @@
+module.exports = (client, channel, user) => client.say(channel, `Ola! @${user.username}, seja bem vindo(a)!`)

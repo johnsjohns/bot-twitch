@@ -1,5 +1,6 @@
 const config = require('dotenv/config');
 const tmi = require('tmi.js');
+const lista = require('./commands/lista');
 
 opt = {
 	options: { debug: true },
@@ -25,20 +26,19 @@ function onConnectedHandler (addr, port) {
 	console.log(`* Connected to ${addr}:${port}`);
   }
 
-  function messageIncoming(channel, tags, message, self){
-	
-	if(self) return;
-	if(message.toLowerCase() === '!hello') {
-		client.say(channel, `@${tags.username}, heya!`);
-	}
-	if(message.toLowerCase() === '!ola'){
-		client.say(channel, `Ola @${tags.username}, seja bem vindo!`);
-	}	
 
-
-}
    
-  client.on('message', messageIncoming);
+
+  client.on('chat', (channel, user, message, self) => {
+	  if(self) return;
+	  const msgSplited = message.toLowerCase().split(' ');
+	  const cmd = msgSplited[0];
+	  for (let item of lista) {
+		if (cmd === `!${item.cmd}`) {
+		  item.func(client, channel, user, message);
+		}
+	  }
+  });
 
 
   
