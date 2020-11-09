@@ -21,12 +21,13 @@ module.exports = [
     },
 
     {
-        cmd: 'dado',
+        cmd: 'roll',
         description: 'Rola 1 D 6',
-        func: (client, channel, user) => dado(
+        func: (client, channel, user, message) => dado(
             client,
             channel,
-            user
+            user,
+            message
           )
     }
 ]
