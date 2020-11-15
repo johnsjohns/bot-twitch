@@ -1,2 +1,2 @@
 # TWITCH BOT
-Teste com TMI.JS
+Bot para o Twitch com TMI.JS
