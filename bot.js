@@ -31,10 +31,10 @@ conexao.connect(erro => {
 		client.on('connected', onConnectedHandler);
 		function onConnectedHandler (addr, port) {
 			console.log(`* Connected to ${addr}:${port}`);
+			Usuario.reset();
 		};
 
 		client.on('join', (channel, user) => {
-			console.log("JOINED:  " + user);
 			const usuario = {
 				'cliente' : user,
 				'status' : 'on',
@@ -45,7 +45,15 @@ conexao.connect(erro => {
 					var verifica = resultado;
 					if(verifica == undefined){
 						Usuario.adiciona(usuario);
-					} else {}
+					} else { 
+						Usuario.altera(verifica.id, {'status' : 'on'} , (erro, resultado => {
+							if(erro){
+								console.log(erro);
+							} else {
+								console.log(`${verifica.cliente} entrou!!`)
+							}
+						}))
+					}
 				}
 			)
 			
@@ -54,6 +62,18 @@ conexao.connect(erro => {
 
 		client.on('part', function(channel, user){
 			console.log("PARTED:  " + user);
+			Usuario.listaByName(user, resultado => {
+				var verifica = resultado;
+					Usuario.altera(verifica.id,{'status' : 'off'}, (erro, resultado) => {
+						if(erro){
+							console.log(erro);
+						} else {
+							console.log(`${verifica.cliente} saiu!!`);
+						}
+					})
+				
+			}
+		)
 		});
 
 		client.on('chat', (channel, user, message, self) => {

@@ -7,7 +7,7 @@ class Usuarios{
             if(erro){
                 console.log(erro);
             } else {    
-                console.log('novo usuario adicionado');
+                console.log(`${usuario.cliente} usuario adicionado`);
             }
         })
     }
@@ -23,6 +23,26 @@ class Usuarios{
             }
         )
     }
+
+    altera(id, valor, res){
+        const sql = "UPDATE usuarios SET ? WHERE id = ?";
+        conexao.query(sql,[valor, id], (erro, resultado) => {
+            if(erro){
+                return res(erro);
+            } else {
+                return res();
+            }
+        })
+    }
+
+    reset(){
+        const sql = "UPDATE usuarios SET status = 'off'";
+        conexao.query(sql,(erro, resultado) =>{
+            if(erro){
+                console.log(erro);
+            }
+        });
+    } 
 }
 
 module.exports = new Usuarios();
