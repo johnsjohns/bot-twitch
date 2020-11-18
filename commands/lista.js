@@ -2,6 +2,7 @@
 const git = require('./git');
 const ola = require('./ola')
 const dado = require('./dado');
+const social = require('./social');
 
 module.exports = [
     {
@@ -29,5 +30,10 @@ module.exports = [
             user,
             message
           )
+    },
+    {
+        cmd: 'social',
+        description: 'mostras redes sociais',
+        func: (client, channel) => social(client, channel) 
     }
 ]
