@@ -3,7 +3,7 @@ const tmi = require('tmi.js');
 const lista = require('./commands/lista');
 const conexao = require('./infra/db/conexao');
 const Tabelas = require('./infra/db/tabelas');
-const Usuario = require('./infra/model/Usuario');
+const Usuario = require('./infra/model/usuario');
 
 
 opt = {
