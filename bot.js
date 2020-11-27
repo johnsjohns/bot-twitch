@@ -86,6 +86,15 @@ conexao.connect(erro => {
 				}
 			}
 		});
+
+		client.on("raw_message", (messageCloned, message) => {
+			if(message.params[1] === 'culpa'){
+				console.log("culpado!");
+				client.deletemessage(channel, message.tags.id)
+
+			}
+			
+		});
 	}
 })
 
