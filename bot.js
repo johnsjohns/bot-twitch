@@ -76,6 +76,15 @@ conexao.connect(erro => {
 		)
 		});
 
+		client.on("raw_message", (messageCloned, message) => {
+
+			var teste = new RegExp('c+u+[l|1]+p+[a|4]');
+			if(teste.test(message.params[1], 'i') && message.tags.id !== undefined){
+				console.log("culpado: " + message.tags.id)
+				client.deletemessage(channel, message.tags.id)
+			}
+		});
+
 		client.on('chat', (channel, user, message, self) => {
 			if(self) return;
 			const msgSplited = message.toLowerCase().split(' ');
@@ -87,14 +96,7 @@ conexao.connect(erro => {
 			}
 		});
 
-		client.on("raw_message", (messageCloned, message) => {
-			if(message.params[1] === 'culpa'){
-				console.log("culpado!");
-				client.deletemessage(channel, message.tags.id)
-
-			}
-			
-		});
+		
 	}
 })
 
