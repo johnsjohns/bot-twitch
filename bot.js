@@ -77,10 +77,8 @@ conexao.connect(erro => {
 		});
 
 		client.on("raw_message", (messageCloned, message) => {
-
-			var teste = new RegExp('c+u+[l|1]+p+[a|4]');
+			var teste = new RegExp('p+u+t+[a|4]');
 			if(teste.test(message.params[1], 'i') && message.tags.id !== undefined){
-				console.log("culpado: " + message.tags.id)
 				client.deletemessage(channel, message.tags.id)
 			}
 		});
@@ -99,9 +97,3 @@ conexao.connect(erro => {
 		
 	}
 })
-
-
-
-
-
-  
